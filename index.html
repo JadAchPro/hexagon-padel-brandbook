@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Jad Achhab">
+<!-- Réalisé par Jad Achhab — Avril 2026 -->
+<title>Hexagon Padel — Brand Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   VARIABLES
+   ══════════════════════════════════════ */
+:root {
+  /* Blancs — site en blanc, crème réservé aux tenues photo */
+  --blanc: #FFFFFF;
+  --blanc-doux: #FAFAFA;
+  --blanc-chaud: #F5F3F0;
+  --blanc-sable: #EDEAE5;
+  /* Noirs — du plus profond au plus doux */
+  --noir: #0C0C0C;
+  --noir-profond: #050505;
+  --anthracite: #2A2A2A;
+  --graphite: #3D3D3D;
+  --gris-carbone: #555555;
+  /* Verts — académicien et ses nuances */
+  --vert: #1B4332;
+  --vert-profond: #0F2B1F;
+  --vert-mousse: #2D6A4F;
+  --vert-sauge: #40916C;
+  /* Tricolore */
+  --bleu: #002395;
+  --rouge: #ED2939;
+  /* Typo */
+  --title: 'Cormorant Garamond', Georgia, serif;
+  --body: 'Space Grotesk', sans-serif;
+}
+
+/* ══════════════════════════════════════
+   RESET
+   ══════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+h2{text-transform:uppercase}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--body);color:var(--noir);background:var(--blanc);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+img{max-width:100%;display:block}
+::selection{background:var(--vert);color:#fff}
+
+/* ══════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ══════════════════════════════════════ */
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--vert);z-index:10001;width:0%;transition:width 0.1s linear}
+
+/* ══════════════════════════════════════
+   TRICOLORE
+   ══════════════════════════════════════ */
+.tri{display:flex;height:3px;width:100%}
+.tri span:nth-child(1){flex:1;background:var(--bleu)}
+.tri span:nth-child(2){flex:1;background:#fff}
+.tri span:nth-child(3){flex:1;background:var(--rouge)}
+.tri--2{height:2px}
+.tri--mini{width:60px;height:2px}
+
+/* ══════════════════════════════════════
+   NAVIGATION
+   ══════════════════════════════════════ */
+header{position:fixed;top:2px;left:0;right:0;z-index:1000;transition:transform 0.4s ease,background 0.4s ease}
+header.scrolled{background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+/* header always visible */
+.nav{max-width:1400px;margin:0 auto;padding:1.2rem 3rem;display:flex;justify-content:space-between;align-items:center}
+.nav-logo{font-family:var(--title);font-weight:600;font-size:1.15rem;letter-spacing:0.08em;color:#fff;text-decoration:none;transition:color 0.4s ease,opacity 0.3s}
+.nav-logo:hover{opacity:0.6}
+header.scrolled .nav-logo{color:var(--noir)}
+.nav-links{list-style:none;display:flex;gap:2.5rem}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,0.7);font-size:0.7rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;transition:color 0.4s ease;position:relative}
+header.scrolled .nav-links a{color:var(--anthracite)}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:#fff;transition:width 0.3s,background 0.4s}
+header.scrolled .nav-links a::after{background:var(--vert)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:#fff}
+header.scrolled .nav-links a.active{color:var(--vert)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:0.5rem}
+.nav-toggle span{display:block;width:24px;height:1.5px;background:#fff;margin:5px 0;transition:all 0.3s}
+header.scrolled .nav-toggle span{background:var(--noir)}
+
+/* ══════════════════════════════════════
+   SCROLL ANIMATIONS
+   ══════════════════════════════════════ */
+.r{opacity:0;transform:translateY(60px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1)}
+.r.v{opacity:1;transform:translateY(0)}
+.r-left{opacity:0;transform:translateX(-80px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1)}
+.r-left.v{opacity:1;transform:translateX(0)}
+.r-right{opacity:0;transform:translateX(80px);transition:opacity 1s cubic-bezier(0.16,1,0.3,1),transform 1s cubic-bezier(0.16,1,0.3,1)}
+.r-right.v{opacity:1;transform:translateX(0)}
+.r-scale{opacity:0;transform:scale(0.9);transition:opacity 1.2s cubic-bezier(0.16,1,0.3,1),transform 1.2s cubic-bezier(0.16,1,0.3,1)}
+.r-scale.v{opacity:1;transform:scale(1)}
+.r-clip{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s cubic-bezier(0.16,1,0.3,1)}
+.r-clip.v{clip-path:inset(0 0 0% 0)}
+
+/* Stagger children */
+.stagger .r:nth-child(1){transition-delay:0s}
+.stagger .r:nth-child(2){transition-delay:0.12s}
+.stagger .r:nth-child(3){transition-delay:0.24s}
+.stagger .r:nth-child(4){transition-delay:0.36s}
+.stagger .r:nth-child(5){transition-delay:0.48s}
+.stagger .r:nth-child(6){transition-delay:0.6s}
+.stagger .r:nth-child(7){transition-delay:0.72s}
+.stagger .r:nth-child(8){transition-delay:0.84s}
+
+/* ══════════════════════════════════════
+   SECTION 1 — HERO
+   ══════════════════════════════════════ */
+.hero{min-height:100vh;position:relative;display:flex;align-items:flex-end;padding:0 3rem 6rem;overflow:hidden;background:var(--noir)}
+.hero-bg{position:absolute;inset:0;background:url('img/freepik_cadrage-plan-extremement-_2864944166.png') center/cover no-repeat;opacity:0.5;transform:scale(1.05);transition:transform 8s ease-out}
+.hero-bg.loaded{transform:scale(1)}
+.hero-bg.placeholder{background:linear-gradient(160deg,#1B4332 0%,#0C0C0C 60%,#1A2A3A 100%);opacity:1}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(12,12,12,0.85) 0%,rgba(12,12,12,0.2) 50%,rgba(12,12,12,0.3) 100%)}
+.hero-content{position:relative;z-index:2;max-width:1400px;width:100%;margin:0 auto}
+.hero-label{font-family:var(--body);font-size:0.72rem;font-weight:400;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:2rem}
+.hero h1{font-family:var(--title);font-weight:300;font-size:clamp(4rem,12vw,11rem);line-height:0.92;color:#fff;letter-spacing:-0.02em;margin-bottom:1.5rem;font-style:italic}
+.hero h1 span{display:block}
+.hero h1 .line-2{color:rgba(255,255,255,0.3);font-weight:300}
+.hero-bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:2rem}
+.hero-tagline{font-family:var(--title);font-weight:500;font-size:clamp(0.9rem,1.5vw,1.3rem);letter-spacing:0.15em;color:rgba(255,255,255,0.5);font-style:italic}
+.hero-scroll{font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:rgba(255,255,255,0.3);display:flex;align-items:center;gap:0.8rem}
+.hero-scroll-line{width:40px;height:1px;background:rgba(255,255,255,0.2)}
+.hero-tri{position:absolute;bottom:0;left:0;right:0}
+
+/* ══════════════════════════════════════
+   COMMON
+   ══════════════════════════════════════ */
+.label{font-family:var(--body);font-size:0.68rem;font-weight:400;letter-spacing:0.25em;text-transform:uppercase;color:var(--vert);margin-bottom:1rem;opacity:0.6}
+.label--light{color:rgba(255,255,255,0.35)}
+
+/* ══════════════════════════════════════
+   SECTION 2 — SPLIT
+   ══════════════════════════════════════ */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:100vh}
+.split-left{padding:8rem 4rem 8rem 3rem;display:flex;flex-direction:column;justify-content:center}
+.split-right{padding:8rem 3rem 8rem 4rem;display:flex;flex-direction:column;justify-content:center;background:var(--blanc-chaud)}
+.split h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;margin-bottom:1.5rem;letter-spacing:-0.01em;font-style:italic}
+.split p{font-size:0.95rem;line-height:1.6;color:var(--anthracite);max-width:520px;margin-bottom:0.8rem;font-weight:300}
+.split p strong{font-weight:700;color:var(--noir)}
+.pull-quote{font-family:var(--title);font-weight:700;font-size:clamp(1.5rem,3vw,2.5rem);line-height:1.2;color:var(--vert);max-width:500px;padding-left:2rem;border-left:2px solid var(--vert)}
+
+/* ══════════════════════════════════════
+   SECTION 3 — MANIFESTE
+   ══════════════════════════════════════ */
+.manifeste{min-height:auto;max-height:100vh;background:var(--vert);color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:5rem 3rem;position:relative;overflow:hidden}
+.manifeste::before{content:'Forgé';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--title);font-weight:300;font-size:clamp(15rem,30vw,40rem);font-style:italic;color:rgba(255,255,255,0.03);pointer-events:none;white-space:nowrap;line-height:1}
+.manifeste-inner{max-width:800px;text-align:center;position:relative;z-index:2}
+.manifeste-quote{font-family:var(--title);font-weight:600;font-size:clamp(1.2rem,2.5vw,1.8rem);line-height:1.35;color:rgba(255,255,255,0.9);margin-bottom:1.5rem;font-style:italic;opacity:0;transform:translateY(40px);transition:opacity 0.8s ease,transform 0.8s ease}
+.manifeste-quote.v{opacity:1;transform:translateY(0)}
+.manifeste-sep{width:1px;height:30px;background:rgba(255,255,255,0.15);margin:0 auto 1.5rem}
+
+/* ══════════════════════════════════════
+   SECTION 4 — STRATÉGIE
+   ══════════════════════════════════════ */
+.strategie{padding:6rem 3rem;background:var(--blanc)}
+.strategie-inner{max-width:1400px;margin:0 auto}
+.strategie-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:3rem}
+.strategie-text h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;margin-bottom:1.5rem;font-style:italic}
+.strategie-text p{font-size:0.95rem;line-height:1.6;color:var(--anthracite);font-weight:300;margin-bottom:0.8rem}
+.strategie-text p strong{font-weight:700;color:var(--noir)}
+.chart-wrap{display:flex;align-items:center;justify-content:center;padding:2rem}
+.chart{width:100%;max-width:500px;aspect-ratio:1;position:relative;background:#fff;border-radius:2px;box-shadow:0 0 0 1px rgba(0,0,0,0.04)}
+.chart-ax-y{position:absolute;left:50%;top:8%;bottom:8%;width:1px;background:rgba(0,0,0,0.08)}
+.chart-ax-x{position:absolute;top:50%;left:8%;right:8%;height:1px;background:rgba(0,0,0,0.08)}
+.chart-lbl{position:absolute;font-size:0.62rem;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;white-space:nowrap}
+.chart-lbl--t{top:3%;left:50%;transform:translateX(-50%);color:var(--vert)}
+.chart-lbl--b{bottom:3%;left:50%;transform:translateX(-50%);color:var(--anthracite);opacity:0.4}
+.chart-lbl--l{left:3%;top:50%;transform:translateY(-50%) rotate(-90deg);transform-origin:left center;color:var(--anthracite);opacity:0.4}
+.chart-lbl--r{right:3%;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:right center;color:var(--vert)}
+.dot{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--anthracite);opacity:0.3}
+.dot-label{position:absolute;font-size:0.65rem;color:var(--anthracite);opacity:0.4;white-space:nowrap}
+.dot--hp{width:14px;height:14px;border-radius:50%;background:var(--vert);opacity:1;box-shadow:0 0 0 6px rgba(27,67,50,0.15),0 0 0 12px rgba(27,67,50,0.06)}
+.dot-label--hp{font-weight:700;color:var(--vert);opacity:1;font-size:0.75rem}
+.rule-box{background:var(--noir);color:#fff;padding:3rem 4rem;border-radius:2px;max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:3rem}
+.rule-box .rule-mark{font-family:var(--title);font-weight:300;font-size:5rem;color:rgba(255,255,255,0.08);line-height:1;flex-shrink:0;font-style:italic}
+.rule-box p{font-family:var(--title);font-weight:700;font-size:1.3rem;line-height:1.4;color:rgba(255,255,255,0.8)}
+.rule-box p em{font-style:normal;color:#fff}
+
+/* ══════════════════════════════════════
+   SECTION 5 — VALEURS
+   ══════════════════════════════════════ */
+.valeurs{padding:6rem 3rem;background:var(--blanc-chaud)}
+.valeurs-inner{max-width:1400px;margin:0 auto}
+.valeurs-header{margin-bottom:3rem}
+.valeurs-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.valeurs-grid{display:grid;grid-template-columns:1fr;gap:0;border-top:1px solid rgba(0,0,0,0.08)}
+.valeur{padding:2.5rem 0;border-bottom:1px solid rgba(0,0,0,0.08);position:relative;display:grid;grid-template-columns:6rem 1fr 2fr;gap:1.5rem;align-items:start}
+.valeur-num{font-family:var(--title);font-weight:300;font-size:4rem;line-height:0.85;color:rgba(27,67,50,0.12);font-style:italic}
+.valeur h3{font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);padding-top:0.3rem}
+.valeur p{font-size:0.95rem;line-height:1.65;color:var(--anthracite);font-weight:300}
+
+/* ══════════════════════════════════════
+   SECTION 6 — CIBLES
+   ══════════════════════════════════════ */
+.cibles{padding:6rem 3rem;background:var(--blanc)}
+.cibles-inner{max-width:1400px;margin:0 auto}
+.cibles-header{display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:3rem}
+.cibles-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.cibles-header p{font-size:1rem;line-height:1.7;color:var(--anthracite);font-weight:300;align-self:end}
+.cibles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,0,0,0.06)}
+.cible{background:var(--blanc);padding:3rem}
+.cible-tag{font-family:var(--title);font-weight:900;font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--vert);margin-bottom:0.3rem}
+.cible-age{font-size:0.82rem;color:var(--anthracite);opacity:0.4;margin-bottom:1.5rem;font-weight:300}
+.cible ul{list-style:none;margin-bottom:1.5rem}
+.cible li{font-size:0.9rem;line-height:1.6;color:var(--anthracite);font-weight:300;padding:0.25rem 0 0.25rem 1rem;position:relative}
+.cible li::before{content:'';position:absolute;left:0;top:0.7rem;width:4px;height:4px;border-radius:50%;background:var(--vert);opacity:0.4}
+.cible-msg{padding-top:1.5rem;border-top:1px solid rgba(0,0,0,0.06);font-family:var(--title);font-weight:700;font-size:1rem;color:var(--vert);line-height:1.4}
+
+/* ══════════════════════════════════════
+   SECTION 7 — PALETTE
+   ══════════════════════════════════════ */
+.palette-section{padding:6rem 3rem;background:var(--blanc)}
+.palette-inner{max-width:1400px;margin:0 auto}
+.palette-header{margin-bottom:3rem}
+.palette-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.palette-strip{display:grid;grid-template-columns:3fr 2fr 1.5fr 1.5fr 2fr 1.5fr 1fr;gap:0;height:280px;border-radius:3px;overflow:hidden;margin-bottom:4rem}
+.palette-group-label{font-size:0.55rem;letter-spacing:0.15em;text-transform:uppercase;opacity:0.3;margin-bottom:0.3rem}
+.palette-swatch{padding:1.5rem;display:flex;flex-direction:column;justify-content:flex-end;cursor:pointer;transition:opacity 0.3s;position:relative}
+.palette-swatch:hover{opacity:0.88}
+.palette-swatch-name{font-family:var(--title);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.2rem}
+.palette-swatch-hex{font-family:var(--body);font-size:0.78rem;opacity:0.6;margin-bottom:0.15rem}
+.palette-swatch-role{font-size:0.7rem;opacity:0.4;line-height:1.3}
+.palette-swatch-pct{position:absolute;top:1.5rem;right:1.5rem;font-family:var(--title);font-weight:900;font-size:1.8rem;opacity:0.15}
+.sw-light{color:#fff}
+.sw-dark{color:var(--noir)}
+.tricolore-block{display:grid;grid-template-columns:1fr;gap:2rem;margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(0,0,0,0.06)}
+.tricolore-demo{height:8px;display:flex;border-radius:1px;overflow:hidden;margin-bottom:1.5rem;max-width:300px}
+.tricolore-demo div:nth-child(1){flex:1;background:var(--bleu)}
+.tricolore-demo div:nth-child(2){flex:1;background:#fff;border-top:1px solid rgba(0,0,0,0.06);border-bottom:1px solid rgba(0,0,0,0.06)}
+.tricolore-demo div:nth-child(3){flex:1;background:var(--rouge)}
+.tricolore-text h3{font-family:var(--title);font-weight:700;font-size:1.3rem;text-transform:uppercase;margin-bottom:1rem}
+.tricolore-text p{font-size:0.95rem;color:var(--anthracite);line-height:1.65;font-weight:300}
+.contraste-visual{display:flex;gap:0;height:200px;border-radius:3px;overflow:hidden;margin-top:auto}
+.contraste-half{flex:1;display:flex;align-items:center;justify-content:center;font-family:var(--title);font-weight:300;font-size:2rem;font-style:italic;letter-spacing:0.05em}
+.contraste-half--light{background:var(--blanc);color:var(--noir)}
+.contraste-half--dark{background:var(--noir);color:var(--blanc)}
+.toast{position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--noir);color:#fff;padding:0.8rem 2rem;border-radius:100px;font-size:0.82rem;font-weight:500;z-index:9999;transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);pointer-events:none;letter-spacing:0.05em}
+.toast.show{transform:translateX(-50%) translateY(0)}
+
+/* ══════════════════════════════════════
+   SECTION 8 — TYPOGRAPHIE
+   ══════════════════════════════════════ */
+.typo-section{padding:6rem 3rem;background:var(--blanc-chaud)}
+.typo-inner{max-width:1400px;margin:0 auto}
+.typo-header{margin-bottom:3rem}
+.typo-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.typo-massive{margin-bottom:3rem}
+.typo-massive-barlow{font-family:var(--title);font-weight:300;font-size:clamp(5rem,12vw,12rem);font-style:italic;line-height:0.85;letter-spacing:-0.03em;color:var(--noir);margin-bottom:1rem;overflow:hidden}
+.typo-massive-sub{font-family:var(--title);font-weight:600;font-size:clamp(2rem,5vw,4rem);font-style:italic;line-height:0.95;color:var(--vert);margin-bottom:3rem}
+.typo-massive-space{font-family:var(--body);font-weight:300;font-size:clamp(1rem,2vw,1.4rem);line-height:1.7;color:var(--anthracite);max-width:650px}
+.typo-grid{display:grid;grid-template-columns:2fr 2fr 1fr 1fr 1fr;gap:0;border-top:1px solid rgba(0,0,0,0.1);margin-bottom:4rem}
+.typo-grid-header{font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--vert);padding:1rem 0;border-bottom:1px solid rgba(0,0,0,0.1)}
+.typo-grid-cell{font-size:0.88rem;padding:1rem 0;border-bottom:1px solid rgba(0,0,0,0.04);color:var(--anthracite);font-weight:300}
+.dodont{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.do-col,.dont-col{padding:3rem}
+.do-col{background:rgba(27,67,50,0.04);border-left:2px solid var(--vert)}
+.dont-col{background:rgba(237,41,57,0.03);border-left:2px solid var(--rouge)}
+.dd-title{font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.5rem}
+.do-col .dd-title{color:var(--vert)}
+.dont-col .dd-title{color:var(--rouge)}
+.dd-list{list-style:none}
+.dd-list li{font-size:0.9rem;line-height:1.5;color:var(--anthracite);font-weight:300;padding:0.4rem 0 0.4rem 1.5rem;position:relative}
+.do-col .dd-list li::before{content:'✓';position:absolute;left:0;color:var(--vert);font-weight:700}
+.dont-col .dd-list li::before{content:'✕';position:absolute;left:0;color:var(--rouge);font-weight:700}
+
+/* ══════════════════════════════════════
+   SECTION 9 — LOGO
+   ══════════════════════════════════════ */
+.logo-section{padding:6rem 3rem;background:var(--blanc)}
+.logo-inner{max-width:1400px;margin:0 auto}
+.logo-header{margin-bottom:3rem}
+.logo-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.logo-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(0,0,0,0.06);margin-bottom:4rem}
+.logo-card{padding:4rem;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;text-align:center}
+.logo-card--light{background:var(--blanc)}
+.logo-card--dark{background:var(--noir);color:var(--blanc)}
+.logo-card-label{font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;margin-bottom:2rem}
+.logo-card-display{font-family:var(--title);font-weight:600;font-size:2.5rem;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:1.5rem}
+.logo-card-display--script{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic;letter-spacing:0;font-size:2.8rem}
+.logo-card-display--official{font-size:1.8rem;letter-spacing:0.15em;margin-bottom:0.3rem}
+.logo-card-sub{font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;opacity:0.35;margin-bottom:1.5rem}
+.logo-card-usage{font-size:0.85rem;color:var(--anthracite);line-height:1.5;font-weight:300;max-width:300px}
+.logo-card--dark .logo-card-usage{color:rgba(255,255,255,0.4)}
+.protection{display:flex;align-items:center;justify-content:center;padding:4rem;margin-bottom:4rem}
+.protection-box{border:1.5px dashed rgba(27,67,50,0.25);padding:3rem 5rem;position:relative}
+.protection-box::before,.protection-box::after{content:'H';position:absolute;font-family:var(--title);font-weight:900;font-size:0.55rem;color:var(--vert);opacity:0.4}
+.protection-box::before{top:-0.3rem;left:50%;transform:translateX(-50%)}
+.protection-box::after{bottom:-0.3rem;left:50%;transform:translateX(-50%)}
+.protection-inner{font-family:var(--title);font-weight:600;font-size:2.5rem;text-transform:uppercase;letter-spacing:0.1em}
+.protection-note{text-align:center;font-size:0.78rem;color:var(--anthracite);opacity:0.5;margin-top:1rem}
+
+/* ══════════════════════════════════════
+   SECTION 6.0 — ITÉRATIONS
+   ══════════════════════════════════════ */
+.iterations{padding:6rem 3rem;background:var(--blanc-chaud)}
+.iterations-inner{max-width:1400px;margin:0 auto}
+.iterations-header{margin-bottom:2rem}
+.iterations-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic}
+.iterations-track{display:flex;gap:1rem;overflow-x:auto;padding-bottom:1.5rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.iterations-track::-webkit-scrollbar{height:4px}
+.iterations-track::-webkit-scrollbar-track{background:rgba(0,0,0,0.04);border-radius:2px}
+.iterations-track::-webkit-scrollbar-thumb{background:var(--vert);border-radius:2px;opacity:0.4}
+.iter-card{flex:0 0 320px;scroll-snap-align:start;position:relative;border-radius:3px;overflow:hidden;background:var(--blanc)}
+.iter-card img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.iter-card-num{position:absolute;top:1rem;left:1rem;font-family:var(--title);font-weight:700;font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;color:#fff;background:rgba(12,12,12,0.6);padding:0.3rem 0.7rem;border-radius:2px;backdrop-filter:blur(6px)}
+
+/* ══════════════════════════════════════
+   SECTION 10 — SIGNATURE
+   ══════════════════════════════════════ */
+.signature{min-height:auto;position:relative;display:flex;align-items:center;overflow:hidden;background:var(--noir)}
+.signature-bg{position:absolute;inset:0;background:url('img/freepik_50mm-niveau-des-yeux-f2.8_2865179782.png') center/cover no-repeat;opacity:0.55}
+.signature-bg.placeholder{background:linear-gradient(160deg,#1B4332 0%,#0C0C0C 50%,#1A2A3A 100%);opacity:1}
+.signature-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(12,12,12,0.8) 0%,rgba(12,12,12,0.2) 100%)}
+.signature-content{position:relative;z-index:2;max-width:1400px;margin:0 auto;padding:6rem 3rem;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.signature-left h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;color:#fff;margin-bottom:1.5rem;font-style:italic}
+.signature-left p{font-size:1.05rem;line-height:1.7;color:rgba(255,255,255,0.6);font-weight:300;max-width:450px}
+.sig-pillars{display:flex;flex-direction:column;gap:0}
+.sig-pillar{padding:2rem 0;border-bottom:1px solid rgba(255,255,255,0.08);display:grid;grid-template-columns:3rem 1fr;gap:1.5rem;align-items:start}
+.sig-pillar:first-child{border-top:1px solid rgba(255,255,255,0.08)}
+.sig-pillar-num{font-family:var(--title);font-weight:900;font-size:1.5rem;color:rgba(255,255,255,0.15)}
+.sig-pillar h3{font-family:var(--title);font-weight:700;font-size:1rem;text-transform:uppercase;color:#fff;margin-bottom:0.4rem;letter-spacing:0.05em}
+.sig-pillar p{font-size:0.88rem;color:rgba(255,255,255,0.5);line-height:1.55;font-weight:300;max-width:100%}
+
+/* ══════════════════════════════════════
+   SECTION 11 — PHOTO
+   ══════════════════════════════════════ */
+.photo-section{padding:6rem 3rem;background:var(--blanc)}
+.photo-inner{max-width:1400px;margin:0 auto}
+.photo-header{margin-bottom:3rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.photo-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);font-style:italic;line-height:1.05}
+.photo-header p{font-size:1rem;line-height:1.7;color:var(--anthracite);font-weight:300;align-self:end}
+.photo-axes{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(0,0,0,0.06);margin-bottom:3rem}
+.photo-axe{background:var(--blanc);overflow:hidden}
+.photo-axe-img{width:100%;aspect-ratio:16/10;background:linear-gradient(135deg,rgba(27,67,50,0.1),rgba(12,12,12,0.05));display:flex;align-items:center;justify-content:center;color:var(--anthracite);font-size:0.78rem;position:relative;overflow:hidden}
+.photo-axe-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0;object-position:center top}
+.photo-axe-body{padding:2rem 2.5rem}
+.photo-axe-pct{font-family:var(--title);font-weight:900;font-size:3.5rem;color:rgba(27,67,50,0.12);line-height:1;margin-bottom:-0.5rem}
+.photo-axe-body h3{font-family:var(--title);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);margin-bottom:0.6rem}
+.photo-axe-body p{font-size:0.88rem;color:var(--anthracite);line-height:1.55;font-weight:300}
+.cam-specs{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(0,0,0,0.06);margin-bottom:4rem}
+.cam-spec{background:var(--blanc);padding:2rem}
+.cam-spec dt{font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--vert);margin-bottom:0.5rem}
+.cam-spec dd{font-size:0.88rem;color:var(--anthracite);line-height:1.5;font-weight:300}
+
+/* ══════════════════════════════════════
+   SECTION 12 — TON
+   ══════════════════════════════════════ */
+.ton-section{background:var(--vert);color:#fff;padding:6rem 3rem;position:relative;overflow:hidden}
+.ton-section::before{content:'Forgé en France';position:absolute;bottom:-2rem;left:-2rem;font-family:var(--title);font-weight:300;font-size:clamp(8rem,15vw,18rem);font-style:italic;color:rgba(255,255,255,0.02);pointer-events:none;white-space:nowrap;line-height:1}
+.ton-inner{max-width:1400px;margin:0 auto;position:relative;z-index:2}
+.ton-header{margin-bottom:3rem}
+.ton-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);font-style:italic;line-height:1.05;color:#fff}
+.ton-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem}
+.ton-voix h3{font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;letter-spacing:0.05em;color:#fff;margin-bottom:1.2rem}
+.ton-voix p{font-size:0.95rem;line-height:1.7;color:rgba(255,255,255,0.7);font-weight:300;margin-bottom:1rem}
+.ton-quote{border-left:2px solid rgba(255,255,255,0.2);padding-left:1.5rem;font-family:var(--title);font-weight:700;font-size:1.2rem;color:rgba(255,255,255,0.9);margin:2rem 0;line-height:1.4}
+.vocab{width:100%;border-collapse:collapse;font-size:0.85rem;margin-bottom:2rem}
+.vocab th{text-align:left;padding:0.6rem 0;font-weight:500;font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.3);border-bottom:1px solid rgba(255,255,255,0.1)}
+.vocab td{padding:0.5rem 0;border-bottom:1px solid rgba(255,255,255,0.04);color:rgba(255,255,255,0.7);font-weight:300}
+.vocab .do-w{color:rgba(255,255,255,0.9);font-weight:500}
+.vocab .dont-w{color:rgba(237,41,57,0.6);text-decoration:line-through}
+
+/* ══════════════════════════════════════
+   SECTION 13 — RS
+   ══════════════════════════════════════ */
+.rs-section{padding:6rem 3rem;background:var(--blanc)}
+.rs-inner{max-width:1400px;margin:0 auto}
+.rs-header{margin-bottom:3rem}
+.rs-header h2{font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);font-style:italic;line-height:1.05}
+.rs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:rgba(0,0,0,0.06);margin-bottom:3rem}
+.rs-card{background:var(--blanc);padding:2.5rem 2rem}
+.rs-card-icon{font-family:var(--title);font-weight:900;font-size:2rem;color:rgba(27,67,50,0.12);margin-bottom:1rem}
+.rs-card h3{font-family:var(--title);font-weight:700;font-size:0.95rem;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem}
+.rs-card-format{font-size:0.75rem;color:var(--vert);font-weight:500;margin-bottom:0.2rem}
+.rs-card-freq{font-size:0.7rem;color:var(--anthracite);opacity:0.35;margin-bottom:1rem}
+.rs-card p{font-size:0.85rem;color:var(--anthracite);line-height:1.55;font-weight:300}
+.rs-formats{margin-bottom:4rem}
+.rs-formats h3{font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;color:var(--vert);margin-bottom:1rem}
+.rs-formats p{font-size:0.92rem;color:var(--anthracite);line-height:1.7;font-weight:300}
+
+/* ══════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════ */
+footer{background:var(--noir);padding:6rem 3rem 3rem;position:relative}
+.footer-inner{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end}
+.footer-left .footer-logo{font-family:var(--title);font-weight:600;font-size:clamp(2rem,4vw,3.5rem);text-transform:uppercase;letter-spacing:0.05em;color:var(--blanc);line-height:0.95;margin-bottom:0.8rem}
+.footer-left .footer-tagline{font-family:var(--title);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.3em;color:rgba(255,255,255,0.2)}
+.footer-right{text-align:right}
+.footer-credits{font-size:0.72rem;color:rgba(255,255,255,0.15);line-height:1.8}
+.footer-tri{margin-top:4rem}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════ */
+@media(max-width:1024px){
+  .split{grid-template-columns:1fr}
+  .split-right{padding:4rem 3rem 8rem}
+  .strategie-top{grid-template-columns:1fr;gap:3rem}
+  .valeurs-grid{grid-template-columns:1fr}
+  .valeur{grid-template-columns:4rem 1fr;gap:1rem}
+  .valeur p{grid-column:1/-1}
+  .cibles-header{grid-template-columns:1fr}
+  .cibles-grid{grid-template-columns:1fr}
+  .palette-strip{grid-template-columns:1fr 1fr;height:auto}
+  .palette-swatch{padding:1.5rem;min-height:80px}
+  .typo-grid{grid-template-columns:1fr 1fr;gap:1px;background:rgba(0,0,0,0.06)}
+  .typo-grid>*{background:var(--blanc-chaud);padding:0.8rem 1rem}
+  .signature-content{grid-template-columns:1fr}
+  .photo-header{grid-template-columns:1fr}
+  .photo-axes{grid-template-columns:1fr}
+  .ton-grid{grid-template-columns:1fr;gap:3rem}
+  .rs-grid{grid-template-columns:1fr 1fr}
+  .dodont{grid-template-columns:1fr}
+  .logo-grid{grid-template-columns:1fr}
+  .cam-specs{grid-template-columns:1fr}
+  .tricolore-block{grid-template-columns:1fr;gap:2rem}
+  .footer-inner{grid-template-columns:1fr;gap:2rem}
+  .footer-right{text-align:left}
+  .rule-box{flex-direction:column;gap:1.5rem;padding:2.5rem}
+}
+@media(max-width:700px){
+  .nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .nav-links.open{display:flex;flex-direction:column;position:absolute;top:100%;left:0;right:0;background:var(--blanc);padding:1.5rem;gap:1rem;border-bottom:1px solid rgba(0,0,0,0.06)}
+  .nav-toggle{display:block}
+  .hero{padding:0 1.5rem 4rem}
+  section,.strategie,.valeurs,.cibles,.palette-section,.typo-section,.logo-section,.photo-section,.rs-section{padding:6rem 1.5rem}
+  .ton-section{padding:6rem 1.5rem}
+  .split-left,.split-right{padding:4rem 1.5rem}
+  .rs-grid{grid-template-columns:1fr}
+  .signature-content{padding:6rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- Tricolore top -->
+<div class="tri" style="position:fixed;top:0;left:0;right:0;z-index:10000"><span></span><span></span><span></span></div>
+
+<!-- ═══ HEADER ═══ -->
+<header id="header">
+  <div class="nav">
+    <a href="#hero" class="nav-logo">HEXAGON PADEL</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#manifeste">Manifeste</a></li>
+      <li><a href="#valeurs">Valeurs</a></li>
+      <li><a href="#positionnement">Positionnement</a></li>
+      <li><a href="#cibles">Cibles</a></li>
+      <li><a href="#identite">Identité</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ═══ SECTION 1 — HERO ═══ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-label r">Brand Book — Avril 2026</div>
+    <h1><span class="r">HEXAGON</span><span class="line-2 r">PADEL</span></h1>
+    <div class="hero-bottom">
+      <div class="hero-tagline r">Forgé en France</div>
+    </div>
+  </div>
+  <div class="hero-tri tri tri--2"><span></span><span></span><span></span></div>
+</section>
+
+<!-- ═══ SECTION 2 — VISION ═══ -->
+<div class="split" id="vision">
+  <div class="split-left">
+    <div class="label r">01 — Vision</div>
+    <h2 class="r">Qui<br>sommes-<br>nous</h2>
+    <p class="r">Premier et seul fabricant français de raquettes de padel. Hexagon Padel conçoit et produit en France des raquettes à partir de <strong>carbone recyclé issu de l'aéronautique</strong>.</p>
+    <p class="r">Un pionnier dans un marché dominé par l'import. Le nom <strong>Hexagon</strong> porte une double lecture : la France — l'Hexagone — et la structure moléculaire du carbone, hexagonale par nature.</p>
+  </div>
+  <div class="split-right">
+    <div class="pull-quote r-left">Fabriquer ici, avec ce qui existe déjà, sans compromis sur la performance.</div>
+    <div style="margin-top:3rem">
+      <p class="r" style="font-size:0.88rem;opacity:0.6">Mission — Prouver qu'industrie sportive et responsabilité écologique ne s'opposent pas.</p>
+      <p class="r" style="font-size:0.88rem;opacity:0.6;margin-top:0.8rem">Vision — Devenir la référence du padel responsable en Europe.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 — MANIFESTE ═══ -->
+<section class="manifeste" id="manifeste">
+  <div class="label label--light r">02 — Manifeste</div>
+  <div class="manifeste-inner stagger">
+    <div class="manifeste-sep r"></div>
+    <div class="manifeste-quote r">Une raquette de padel forgée en France, à partir de carbone recyclé issu de l'aéronautique.</div>
+    <div class="manifeste-quote r">Une production maîtrisée, portée par un savoir-faire industriel français et une exigence de fabrication locale.</div>
+    <div class="manifeste-quote r">Une performance en harmonie avec la nature, sublimée par la précision de l'artisanat.</div>
+    <div style="margin-top:3rem" class="r"><div class="tri tri--mini" style="margin:0 auto"><span></span><span></span><span></span></div></div>
+  </div>
+</section>
+
+<!-- ═══ SECTION — VALEURS ═══ -->
+<section class="valeurs" id="valeurs">
+  <div class="valeurs-inner">
+    <div class="valeurs-header">
+      <div class="label r">03 — Valeurs</div>
+      <h2 class="r">Ce qui<br>nous fonde</h2>
+    </div>
+    <div class="valeurs-grid stagger">
+      <div class="valeur r">
+        <div class="valeur-num">01</div>
+        <h3>Made in France</h3>
+        <p>Concevoir et produire en France dans un marché dépendant de l'import. Un choix de conviction, un acte de souveraineté dans un secteur où personne ne fabrique localement.</p>
+      </div>
+      <div class="valeur r">
+        <div class="valeur-num">02</div>
+        <h3>Éco-responsabilité structurelle</h3>
+        <p>Le carbone recyclé de l'aéronautique est le matériau fondateur. L'éco-responsabilité est inscrite dans la matière de chaque raquette — pas un argument, une réalité physique.</p>
+      </div>
+      <div class="valeur r">
+        <div class="valeur-num">03</div>
+        <h3>Performance authentique</h3>
+        <p>Du carbone forgé, des tests terrain, des retours joueurs. La performance se démontre par le jeu, pas par le discours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION — POSITIONNEMENT ═══ -->
+<section class="strategie" id="positionnement">
+  <div class="strategie-inner">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;margin-bottom:3rem">
+      <div>
+        <div class="label r">04 — Positionnement</div>
+        <h2 class="r" style="font-family:var(--title);font-weight:300;font-size:clamp(2rem,3.5vw,3rem);line-height:1.05;font-style:italic">Quatre contraintes,<br>une direction</h2>
+      </div>
+      <p class="r" style="font-size:0.95rem;line-height:1.7;color:var(--anthracite);font-weight:300;align-self:end">Quatre spécificités structurent le positionnement d'Hexagon Padel et dictent sa direction artistique — forte, assumée, presque clivante.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(0,0,0,0.06)" class="stagger">
+      <div style="background:var(--blanc);padding:2rem" class="r">
+        <div style="font-family:var(--title);font-weight:300;font-size:2.5rem;color:rgba(27,67,50,0.12);line-height:0.85;margin-bottom:0.6rem;font-style:italic">01</div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);margin-bottom:0.5rem">Entre deux mondes</h3>
+        <p style="font-size:0.85rem;line-height:1.55;color:var(--anthracite);font-weight:300">À la croisée de la performance technique et de la responsabilité territoriale. Deux univers, deux esthétiques. Il faut trancher.</p>
+      </div>
+      <div style="background:var(--blanc);padding:2rem" class="r">
+        <div style="font-family:var(--title);font-weight:300;font-size:2.5rem;color:rgba(27,67,50,0.12);line-height:0.85;margin-bottom:0.6rem;font-style:italic">02</div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);margin-bottom:0.5rem">Marque manifeste</h3>
+        <p style="font-size:0.85rem;line-height:1.55;color:var(--anthracite);font-weight:300">Un message fort, véhicule de convictions. La raquette est un acte d'adhésion, une affirmation portée fièrement sur le terrain.</p>
+      </div>
+      <div style="background:var(--blanc);padding:2rem" class="r">
+        <div style="font-family:var(--title);font-weight:300;font-size:2.5rem;color:rgba(27,67,50,0.12);line-height:0.85;margin-bottom:0.6rem;font-style:italic">03</div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);margin-bottom:0.5rem">Budget marketing limité</h3>
+        <p style="font-size:0.85rem;line-height:1.55;color:var(--anthracite);font-weight:300">Face à des acteurs aux moyens sans commune mesure, chaque production doit marquer au premier regard. Pas de volume — une empreinte.</p>
+      </div>
+      <div style="background:var(--blanc);padding:2rem" class="r">
+        <div style="font-family:var(--title);font-weight:300;font-size:2.5rem;color:rgba(27,67,50,0.12);line-height:0.85;margin-bottom:0.6rem;font-style:italic">04</div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--vert);margin-bottom:0.5rem">Esthétique produit brute</h3>
+        <p style="font-size:0.85rem;line-height:1.55;color:var(--anthracite);font-weight:300">La fabrication française impose un coût qui limite le design de la raquette. Son esthétique brute, potentiellement clivante, appelle un positionnement visuel qui l'assume pleinement.</p>
+      </div>
+    </div>
+    <div class="r" style="margin-top:2rem;padding:1.5rem 2rem;background:var(--noir);border-radius:2px">
+      <p style="font-family:var(--title);font-weight:600;font-size:1.05rem;line-height:1.5;color:rgba(255,255,255,0.85);font-style:italic">Conséquence directe : une identité de marque assumée, affirmée, presque clivante — identifiable sans même le logo Hexagon.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION — CIBLES ═══ -->
+<section class="cibles" id="cibles">
+  <div class="cibles-inner">
+    <div class="cibles-header">
+      <div><div class="label r">05 — Cibles</div><h2 class="r">À qui<br>nous nous<br>adressons</h2></div>
+      <p class="r">Deux profils, une promesse commune : jouer avec un produit porteur de sens, de qualité et de fierté.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(0,0,0,0.06);margin-bottom:2px" class="stagger">
+      <div class="cible r">
+        <div class="cible-tag">Cadre CSP+</div>
+        <div class="cible-age">30-50 ans — Cible principale</div>
+        <ul><li>Pouvoir d'achat confortable, pratique régulière</li><li>Sensibilité au Made in France, à la qualité, à la rareté</li><li>Niveau intermédiaire à avancé</li></ul>
+        <div class="cible-msg">Levier : distinction, qualité matériau, ancrage territorial. Sensible à l'objet rare.</div>
+      </div>
+      <div class="cible r">
+        <div class="cible-tag">Jeune actif engagé</div>
+        <div class="cible-age">22-35 ans — Cible secondaire</div>
+        <ul><li>Pratique intensive, progression rapide</li><li>Conscience environnementale, engagement authentique</li><li>Sensibilité au Made in France et à l'éco-responsabilité</li></ul>
+        <div class="cible-msg">Levier : cohérence valeurs/consommation. Adhère à la démarche autant qu'au produit.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION — IDENTITÉ VISUELLE (méga-section) ═══ -->
+<section id="identite" style="min-height:50vh;background:var(--noir);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6rem 3rem;position:relative;overflow:hidden">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--title);font-weight:300;font-size:clamp(12rem,25vw,30rem);font-style:italic;color:rgba(255,255,255,0.03);pointer-events:none;white-space:nowrap;text-transform:uppercase">Identité</div>
+  <div class="label label--light r" style="position:relative;z-index:2">06 — Identité visuelle</div>
+  <h2 class="r" style="font-family:var(--title);font-weight:300;font-size:clamp(3rem,7vw,6rem);font-style:italic;color:#fff;text-align:center;line-height:1.05;position:relative;z-index:2;text-transform:uppercase">L'univers<br>visuel</h2>
+  <p class="r" style="font-family:var(--body);font-size:1rem;color:rgba(255,255,255,0.4);margin-top:2rem;text-align:center;max-width:580px;font-weight:300;position:relative;z-index:2">La direction artistique, les codes visuels et les outils graphiques qui constituent l'identité Hexagon Padel.</p>
+  <div class="r" style="margin-top:3rem;position:relative;z-index:2"><div class="tri tri--mini"><span></span><span></span><span></span></div></div>
+</section>
+
+<!-- ═══ 6.0 — ITÉRATIONS ═══ -->
+<section class="iterations" id="iterations">
+  <div class="iterations-inner">
+    <div class="iterations-header">
+      <div class="label r">6.0 — Recherches visuelles</div>
+      <h2 class="r">Itérations<br>de direction</h2>
+      <p class="r" style="font-size:0.95rem;line-height:1.6;color:var(--anthracite);font-weight:300;margin-top:1rem;max-width:600px">Les différentes pistes explorées pour aboutir à la direction artistique retenue.</p>
+    </div>
+    <div class="iterations-track">
+      <div class="iter-card r"><div class="iter-card-num">V1</div><img src="img/1.png" alt="Itération 1"></div>
+      <div class="iter-card r"><div class="iter-card-num">V2</div><img src="img/2.png" alt="Itération 2"></div>
+      <div class="iter-card r"><div class="iter-card-num">V3</div><img src="img/3.png" alt="Itération 3"></div>
+      <div class="iter-card r"><div class="iter-card-num">V4</div><img src="img/4.png" alt="Itération 4"></div>
+      <div class="iter-card r"><div class="iter-card-num">V5</div><img src="img/5.png" alt="Itération 5"></div>
+      <div class="iter-card r"><div class="iter-card-num">V6</div><img src="img/6.png" alt="Itération 6"></div>
+      <div class="iter-card r"><div class="iter-card-num">V7</div><img src="img/7.png" alt="Itération 7"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6.1 — SIGNATURE VISUELLE ═══ -->
+<section class="signature" id="signature">
+  <div class="signature-bg"></div>
+  <div class="signature-overlay"></div>
+  <div class="signature-content">
+    <div class="signature-left">
+      <div class="label label--light r">6.1 — Signature visuelle</div>
+      <h2 class="r">French<br>Touch<br>Padel</h2>
+      <p class="r">Une signature française, assumée, évidente au premier regard. Immergée dans la nature, enracinée dans un terroir. On ne vend pas une raquette — on incarne un style, une fierté, une appartenance. L'objectif : qu'on ait envie non pas d'acheter le produit, mais de faire partie de ceux qui le portent.</p>
+      <div class="r" style="margin-top:2rem"><div class="tri tri--mini"><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="sig-pillars stagger">
+      <div class="sig-pillar r"><div class="sig-pillar-num">01</div><div><h3>Codes du tennis traditionnel</h3><p>Tenues blanches, V-neck en maille, chaussettes hautes. Les codes de Roland-Garros et des clubs historiques — le prestige qui résonne naturellement auprès des CSP+.</p></div></div>
+      <div class="sig-pillar r"><div class="sig-pillar-num">02</div><div><h3>Nature française champêtre</h3><p>Prairies, forêts de chênes, clairières. Pas de club urbain. La nature évoque à la fois l'ancrage écologique et le terroir français — un sport qui pousse, qui germe, qui s'enracine.</p></div></div>
+      <div class="sig-pillar r"><div class="sig-pillar-num">03</div><div><h3>Contraste blanc & carbone</h3><p>Tenues blanc crème en contraste assumé avec la raquette noire. Le carbone forgé est le seul élément sombre — brut, matte, visible. La forge au milieu du jardin.</p></div></div>
+      <div class="sig-pillar r"><div class="sig-pillar-num">04</div><div><h3>Liseré tricolore</h3><p>Un détail textile bleu-blanc-rouge, fin et systématique. Affirme l'identité française sans jamais devenir un drapeau. Un fil conducteur, pas une surface.</p></div></div>
+      <div class="sig-pillar r"><div class="sig-pillar-num">05</div><div><h3>Posture lifestyle & fierté</h3><p>Des personnages, des mises en scène, des regards caméra. L'image vend un mode de vie, pas un produit. On montre ceux qui portent la marque — fiers, ancrés, affirmés. L'aspiration plutôt que la démonstration.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6.2 — DIRECTION PHOTO ═══ -->
+<section class="photo-section" id="photo">
+  <div class="photo-inner">
+    <div class="photo-header">
+      <div><div class="label r">6.2 — Direction photographique</div><h2 class="r">Quatre axes<br>visuels</h2></div>
+      <p class="r">Chaque image raconte le même récit : du carbone qui a volé, forgé dans un atelier français, joué en pleine nature par des joueurs en blanc.</p>
+    </div>
+    <div class="photo-axes stagger">
+      <div class="photo-axe r"><div class="photo-axe-img"><img src="img/freepik_85mm-niveau-des-yeux-f2.8_2864950537.png" alt="Action terrain"></div><div class="photo-axe-body"><div class="photo-axe-pct">40%</div><h3>Terrain / Action</h3><p>Joueurs en mouvement, frappe, sueur. Courts en pleine nature. Golden hour, flou de mouvement, grain cinématographique. Contre-plongées, angles dynamiques.</p></div></div>
+      <div class="photo-axe r"><div class="photo-axe-img"><img src="img/freepik_85mm-f2-rembrandt-lightin_2865179396.png" alt="Incarnation pose fière"></div><div class="photo-axe-body"><div class="photo-axe-pct">30%</div><h3>Incarnation / Pose fière</h3><p>Joueurs debout, regard caméra, raquette au côté. En pleine nature. Fierté calme, appartenance. Éclairage Rembrandt naturel.</p></div></div>
+      <div class="photo-axe r"><div class="photo-axe-img"><img src="img/freepik_macro-f2.8-profondeur-de-_2864947453.png" alt="Matière carbone macro"></div><div class="photo-axe-body"><div class="photo-axe-pct">15%</div><h3>Matière brute / Carbone</h3><p>Macro sur la fibre, chutes de carbone aéronautique. Lumière naturelle sur fond de bois d'atelier. Natures mortes artisanales.</p></div></div>
+      <div class="photo-axe r"><div class="photo-axe-img"><img src="img/freepik_50mm-f2.8-plan-rapproche-_2864956413.png" alt="Atelier process"></div><div class="photo-axe-body"><div class="photo-axe-pct">15%</div><h3>Atelier / Process</h3><p>Mains travaillant le carbone, moules, outils. Atelier lumineux ouvert sur la nature. Documentaire, authentique.</p></div></div>
+    </div>
+    <div class="r" style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:1rem">
+      <div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:1rem;text-transform:uppercase;color:var(--vert);margin-bottom:1rem;letter-spacing:0.05em">Caméra</h3>
+        <p style="font-size:0.85rem;color:var(--anthracite);line-height:1.65;font-weight:300">35-85mm, f/2-5.6. Golden hour systématique, latérale 45°. Grain cinématographique subtil. Sujet 40-60% du cadre, nature jamais coupée. Post-traitement : tons chauds, verts tirés vers #1B4332.</p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:1rem;text-transform:uppercase;color:var(--rouge);margin-bottom:1rem;letter-spacing:0.05em">Interdits</h3>
+        <p style="font-size:0.85rem;color:var(--anthracite);line-height:1.65;font-weight:300">Packshot fond uni. Photos stock. Tenues sport modernes. Clubs urbains. Raquette posée en décor. Toute image qui pourrait appartenir à une autre marque.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6.3 — TON & LANGAGE ═══ -->
+<section class="ton-section" id="ton">
+  <div class="ton-inner">
+    <div class="ton-header"><div class="label label--light r">6.3 — Brandvoice</div><h2 class="r">Brandvoice</h2></div>
+    <div class="ton-grid">
+      <div class="ton-voix">
+        <h3 class="r">Voix de marque</h3>
+        <p class="r">Affirmatif, ancré, sans esbroufe. Phrases courtes, ponctuation sèche. Fierté sans arrogance. Le ton d'un artisan qui montre son travail.</p>
+        <div class="ton-quote r">Du carbone aéronautique. Forgé en France. Joué partout.</div>
+        <div class="ton-quote r">Fabriqué ici, avec ce qui existe déjà.</div>
+        <h3 class="r" style="margin-top:3rem">Registre</h3>
+        <table class="vocab r"><thead><tr><th>Contexte</th><th>Registre</th></tr></thead><tbody><tr><td>Produit</td><td>Factuel + fierté</td></tr><tr><td>Marque / Valeurs</td><td>Manifeste + engagement</td></tr><tr><td>Sport / Terrain</td><td>Énergie + dynamisme</td></tr></tbody></table>
+      </div>
+      <div>
+        <h3 class="r" style="font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;color:#fff;margin-bottom:1.2rem;letter-spacing:0.05em">Vocabulaire</h3>
+        <table class="vocab r"><thead><tr><th>Do</th><th>Catégorie</th></tr></thead><tbody><tr><td class="do-w">forgé, recyclé, carbone, brut, fibre</td><td>Matière</td></tr><tr><td class="do-w">atelier, fabriquer, forger, assembler</td><td>Process</td></tr><tr><td class="do-w">durable, pionnier, seconde vie, assumer</td><td>Engagement</td></tr><tr><td class="do-w">France, authentique, rare, unique</td><td>Identité</td></tr></tbody></table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6.4 — PALETTE ═══ -->
+<section class="palette-section" id="palette">
+  <div class="palette-inner">
+    <div class="palette-header"><div class="label r">6.4 — Palette</div><h2 class="r">Couleurs<br>de marque</h2></div>
+    <div class="palette-strip r-scale">
+      <div class="palette-swatch sw-dark" style="background:#F5F3F0;border-right:1px solid rgba(0,0,0,0.04)" data-hex="#F5F3F0" onclick="copyHex(this)">
+        <div class="palette-swatch-pct">40%</div><div class="palette-group-label">Blancs</div><div class="palette-swatch-name">Blanc Minéral</div><div class="palette-swatch-hex">#F5F3F0</div><div class="palette-swatch-role">Dominante. Tenues, fonds, respiration.</div>
+      </div>
+      <div class="palette-swatch sw-dark" style="background:#EDEAE5;border-right:1px solid rgba(0,0,0,0.04)" data-hex="#EDEAE5" onclick="copyHex(this)">
+        <div class="palette-swatch-name">Blanc Chaud</div><div class="palette-swatch-hex">#EDEAE5</div><div class="palette-swatch-role">Fonds alternés, cartes.</div>
+      </div>
+      <div class="palette-swatch sw-dark" style="background:#E5E1DB" data-hex="#E5E1DB" onclick="copyHex(this)">
+        <div class="palette-swatch-name">Blanc Sable</div><div class="palette-swatch-hex">#E5E1DB</div><div class="palette-swatch-role">Bordures, séparateurs.</div>
+      </div>
+      <div class="palette-swatch sw-light" style="background:#1B4332" data-hex="#1B4332" onclick="copyHex(this)">
+        <div class="palette-swatch-pct">20%</div><div class="palette-group-label">Verts</div><div class="palette-swatch-name">Vert Laurier</div><div class="palette-swatch-hex">#1B4332</div><div class="palette-swatch-role">Couronne de laurier, excellence sportive, tradition française.</div>
+      </div>
+      <div class="palette-swatch sw-light" style="background:#0C0C0C" data-hex="#0C0C0C" onclick="copyHex(this)">
+        <div class="palette-swatch-pct">15%</div><div class="palette-group-label">Noirs</div><div class="palette-swatch-name">Noir Carbone</div><div class="palette-swatch-hex">#0C0C0C</div><div class="palette-swatch-role">La raquette. Accents graphiques.</div>
+      </div>
+      <div class="palette-swatch sw-light" style="background:#2A2A2A" data-hex="#2A2A2A" onclick="copyHex(this)">
+        <div class="palette-swatch-name">Anthracite</div><div class="palette-swatch-hex">#2A2A2A</div><div class="palette-swatch-role">Texte, nuances, profondeur.</div>
+      </div>
+      <div class="palette-swatch sw-light" style="background:#3D3D3D" data-hex="#3D3D3D" onclick="copyHex(this)">
+        <div class="palette-swatch-name">Graphite</div><div class="palette-swatch-hex">#3D3D3D</div><div class="palette-swatch-role">Texte secondaire, ombres.</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:3rem;padding-top:3rem;border-top:1px solid rgba(0,0,0,0.06)">
+      <div class="r">
+        <div class="tricolore-demo"><div></div><div></div><div></div></div>
+        <h3 style="font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;margin-bottom:0.8rem">Le tricolore</h3>
+        <p style="font-size:0.9rem;color:var(--anthracite);line-height:1.6;font-weight:300">Un fil, pas une surface. Traité exclusivement en détail textile fin et en liseré graphique. Jamais en aplat, en badge, en drapeau.</p>
+      </div>
+      <div class="r">
+        <h3 style="font-family:var(--title);font-weight:700;font-size:1.1rem;text-transform:uppercase;margin-bottom:0.8rem">Nuances du vert</h3>
+        <p style="font-size:0.9rem;color:var(--anthracite);line-height:1.6;font-weight:300;margin-bottom:1rem">Le Vert Laurier se décline en profondeur pour les fonds immersifs et en clarté pour les accents secondaires.</p>
+        <div style="display:flex;gap:0;height:50px;border-radius:3px;overflow:hidden">
+          <div style="flex:1;background:#0F2B1F" title="#0F2B1F Vert Profond"></div>
+          <div style="flex:1;background:#1B4332" title="#1B4332 Vert Laurier"></div>
+          <div style="flex:1;background:#2D6A4F" title="#2D6A4F Vert Mousse"></div>
+          <div style="flex:1;background:#40916C" title="#40916C Vert Sauge"></div>
+        </div>
+        <p style="font-size:0.75rem;opacity:0.4;margin-top:0.5rem">#0F2B1F · #1B4332 · #2D6A4F · #40916C</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6.5 — TYPOGRAPHIE ═══ -->
+<section class="typo-section" id="typo">
+  <div class="typo-inner">
+    <div class="typo-header"><div class="label r">6.5 — Typographie</div><h2 class="r">Deux voix,<br>une hiérarchie</h2></div>
+    <div class="typo-massive">
+      <div class="typo-massive-barlow r-clip">FORGÉ EN FRANCE</div>
+      <div class="typo-massive-sub r">Carbone recyclé aéronautique</div>
+      <div class="typo-massive-space r">Premier et seul fabricant français de raquettes de padel. Hexagon Padel conçoit et produit en France des raquettes à partir de carbone recyclé issu de l'aéronautique.</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-bottom:2rem" class="r">
+      <div>
+        <h3 style="font-family:var(--title);font-weight:600;font-size:1.8rem;font-style:italic;color:var(--vert);margin-bottom:0.8rem">Cormorant Garamond</h3>
+        <p style="font-size:0.9rem;color:var(--anthracite);font-weight:300;line-height:1.6">Titres, manifeste, citations. Light Italic (300i) en majuscules.</p>
+      </div>
+      <div>
+        <h3 style="font-family:var(--body);font-weight:500;font-size:1.4rem;color:var(--vert);margin-bottom:0.8rem">Space Grotesk</h3>
+        <p style="font-size:0.9rem;color:var(--anthracite);font-weight:300;line-height:1.6">Corps de texte, légendes, navigation. Regular (400) et Medium (500).</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SECTION — RÉSEAUX SOCIAUX ═══ -->
+<section class="rs-section" id="rs">
+  <div class="rs-inner">
+    <div class="rs-header"><div class="label r">6.6 — Réseaux Sociaux</div><h2 class="r">Présence<br>digitale</h2></div>
+    <div class="rs-grid stagger">
+      <div class="rs-card r"><div class="rs-card-icon">A</div><h3>Atelier / Process</h3><div class="rs-card-format">Photos + vidéos courtes</div><div class="rs-card-freq">2-3x/semaine</div><p>Making-of, matière brute, fabrication.</p></div>
+      <div class="rs-card r"><div class="rs-card-icon">T</div><h3>Terrain / Action</h3><div class="rs-card-format">Photos + reels</div><div class="rs-card-freq">1-2x/semaine</div><p>Joueurs, matchs, la raquette en mouvement.</p></div>
+      <div class="rs-card r"><div class="rs-card-icon">M</div><h3>Manifeste / Valeurs</h3><div class="rs-card-format">Visuels textuels</div><div class="rs-card-freq">1x/semaine</div><p>Phrases choc sur fond carbone ou atelier.</p></div>
+      <div class="rs-card r"><div class="rs-card-icon">F</div><h3>Fondateur</h3><div class="rs-card-format">Stories, BTS</div><div class="rs-card-freq">1-2x/mois</div><p>Apparitions ponctuelles, coulisses.</p></div>
+    </div>
+    <div class="rs-formats r"><h3>Formats recommandés</h3><p><strong>Carrousel</strong> : storytelling du déchet au terrain. <strong>Reels</strong> : action terrain, fabrication accélérée. <strong>Stories</strong> : quotidien atelier. <strong>Post statique</strong> : phrase manifeste sur visuel fort.</p></div>
+    <div class="dodont r">
+      <div class="do-col"><div class="dd-title">✓ Do</div><ul class="dd-list"><li>Montrer l'atelier, le process, la matière brute</li><li>Montrer l'action sur le terrain</li><li>Phrases courtes, assertives, visuels forts</li><li>Cohérence visuelle, palette, typo manifeste</li><li>Répondre directement, pas corporate</li></ul></div>
+      <div class="dont-col"><div class="dd-title">✕ Don't</div><ul class="dd-list"><li>Photos produit léchées sur fond blanc</li><li>Jeux concours cheap</li><li>Ton humoristique décalé</li><li>Emojis excessifs</li><li>Hashtags génériques à rallonge</li><li>Repost sans valeur ajoutée</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ IMAGE FINALE ═══ -->
+<section style="padding:0;margin:0;line-height:0">
+  <img src="img/7.png" alt="Hexagon Padel — Direction retenue" style="width:100%;display:block">
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left"><div class="footer-logo">HEXAGON<br>PADEL</div><div class="footer-tagline">Forgé en France</div></div>
+    <div class="footer-right"><div class="footer-credits">Brand Book — Avril 2026<br>Produit par Jad Achhab<br>Document cadre d'identité de marque</div></div>
+  </div>
+  <div class="footer-tri tri tri--2"><span></span><span></span><span></span></div>
+</footer>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ═══ JAVASCRIPT ═══ -->
+<script>
+const progressBar=document.getElementById('progressBar');
+window.addEventListener('scroll',()=>{const h=document.documentElement.scrollHeight-window.innerHeight;progressBar.style.width=(window.scrollY/h)*100+'%'},{passive:true});
+
+const header=document.getElementById('header');
+window.addEventListener('scroll',()=>{if(window.scrollY>100)header.classList.add('scrolled');else header.classList.remove('scrolled')},{passive:true});
+
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('v')})},{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.r,.r-left,.r-right,.r-scale,.r-clip,.manifeste-quote').forEach(el=>obs.observe(el));
+
+const sections=document.querySelectorAll('section[id],div.split[id],.split[id]');const navLinks=document.querySelectorAll('.nav-links a');
+const navObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){navLinks.forEach(l=>l.classList.remove('active'));const a=document.querySelector('.nav-links a[href="#'+e.target.id+'"]');if(a)a.classList.add('active')}})},{threshold:0.2,rootMargin:'-80px 0px -40% 0px'});
+sections.forEach(s=>navObs.observe(s));
+
+const toggle=document.getElementById('navToggle'),links=document.getElementById('navLinks');
+toggle.addEventListener('click',()=>links.classList.toggle('open'));
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>links.classList.remove('open')));
+
+function copyHex(el){const hex=el.dataset.hex;if(hex&&navigator.clipboard){navigator.clipboard.writeText(hex).then(()=>{const t=document.getElementById('toast');t.textContent=hex+' copié';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)})}}
+
+window.addEventListener('load',()=>{document.querySelectorAll('.hero-bg').forEach(bg=>bg.classList.add('loaded'))});
+</script>
+</body>
+</html>
